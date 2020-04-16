@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!--别名-->
+    <typeAliases>
+        <typeAlias type="com.kinsin.domain.User" alias="User" />
+        <typeAlias type="com.kinsin.domain.Friend" alias="Friend" />
+        <typeAlias type="com.kinsin.domain.Msg" alias="Msg" />
+        <typeAlias type="com.kinsin.domain.RequestFriend" alias="RequestFriend" />
+    </typeAliases>
+
+
+    <environments default="mysql">
+
+        <environment id="mysql">
+            <transactionManager type="JDBC"></transactionManager>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+<!--                <property name="url" value="jdbc:mysql://localhost:3306/websocket"/>-->
+                <property name="url" value="jdbc:mysql://101.201.199.161:3306/websocket"/>
+                <property name="username" value="root"/>
+<!--                <property name="password" value="KINsin1316054361"/>-->
+                <property name="password" value="KINsin1316054361*"/>
+            </dataSource>
+        </environment>
+
+    </environments>
+
+
+    <!-- 数据库表和java对象的映射xml(相当于每个数据库表的操作xml) -->
+    <mappers>
+        <mapper resource="com/kinsin/domain/User.xml"/>
+        <mapper resource="com/kinsin/domain/Friend.xml"/>
+        <mapper resource="com/kinsin/domain/Msg.xml"/>
+        <mapper resource="com/kinsin/domain/RequestFriend.xml"/>
+    </mappers>
+
+</configuration>

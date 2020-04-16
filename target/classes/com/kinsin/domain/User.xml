@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kinsin.dao.UserDao">
+
+    <!--  resultType : 结果类型： -->
+    <!-- 自动封装到对象里要求：【查询的结果的】列名和java对象属性名一致 -->
+    <!--这里取得的列名和User对象中的列名有出入，比如这里取到的username就是User对象中的account,所以需要用到resultMap-->
+    <select id="getAllUser" resultType="User">
+        select * from user
+    </select>
+
+    <insert id="addUser" parameterType="User">
+		insert  into user(account,nick_name,email,password) values (#{account} , #{nick_name} , #{email},#{password})
+	</insert>
+
+    <select id="getUserByAccountAndPassword" parameterType="User" resultType="User">
+        select * from user where account=#{account} and password=#{password}
+    </select>
+
+    <select id="getUserByEmailAndPassword" parameterType="User" resultType="User">
+        select * from user where email=#{account} and password=#{password}
+    </select>
+
+    <select id="getUserByAccount" parameterType="User" resultType="User">
+        select * from user where account=#{account}
+    </select>
+    <select id="getUserByEmail" parameterType="User" resultType="User">
+        select * from user where email=#{email}
+    </select>
+
+    <select id="getFriendList" parameterType="User" resultType="User">
+        select account,nick_name,email,net_status,headicon from user LEFT JOIN friend on user.account=friend.friend_id where uid=#{account}
+    </select>
+
+    <update id="updateStatus" parameterType="User">
+        update user set net_status=#{net_status} where account=#{account}
+    </update>
+
+    <update id="updateNickName" parameterType="User">
+        update user set nick_name=#{nick_name} where account=#{account}
+    </update>
+
+    <update id="updateHeadIcon" parameterType="User">
+        update user set headicon=#{headicon} where account=#{account}
+    </update>
+
+</mapper>

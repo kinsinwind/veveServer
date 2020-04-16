@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kinsin.dao.RequestFriendDao">
+
+<!--    根据接收人和工作状态查询所有的好友请求-->
+    <select id="getRequestByUid2" parameterType="RequestFriend" resultType="RequestFriend">
+        select * from request_friend where uid2=#{uid2} and iswork=#{iswork}
+    </select>
+
+<!--    查询是否有正在工作的请求-->
+    <select id="getRequestByUid1and2" parameterType="RequestFriend" resultType="RequestFriend">
+        select * from request_friend where uid2=#{uid2} and uid1=#{uid1} and iswork=1
+    </select>
+
+<!--    增加好友请求-->
+    <insert id="addRequest" parameterType="RequestFriend">
+		insert  into request_friend(uid1,uid2,iswork,send_time,nick_name) values (#{uid1} , #{uid2} , #{iswork},#{send_time},#{nick_name})
+	</insert>
+
+<!--    将工作状态标记为失效，即已处理-->
+    <update id="updateIsWork" parameterType="RequestFriend">
+        update request_friend set iswork=#{iswork} where uid1=#{uid1} and uid2=#{uid2} and iswork=1
+    </update>
+
+    <!--  拿到所有未处理的好友请求数量  -->
+    <select id="getRequestFriendNumber" parameterType="RequestFriend" resultType="INTEGER">
+        SELECT count(*) as requestNum from request_friend where uid2=#{uid2} and iswork=1
+    </select>
+
+</mapper>
